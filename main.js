@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var memesContainer = document.querySelector('.memes');
 
   var inputContainer = document.querySelector('.submit');
-  inputContainer.addEventListener('click', function(event) {
+  inputContainer.addEventListener('click', formSubmission);
+
+  function formSubmission(event) {
     var submitButton = event.target.value;
     if (submitButton === 'Create Delicious Meme') {
       // Check all 3 fields are populated
@@ -26,11 +28,33 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (submitButton === 'Clear Fields') {
       clearInput();
     }
+  }
 
-    function clearInput() {
-      imageurl.value = '';
-      toptext.value = '';
-      bottomtext.value = '';
+  function clearInput() {
+    imageurl.value = '';
+    toptext.value = '';
+    bottomtext.value = '';
+  }
+
+  // memeContainer Removel Event
+  var memeContainer = document.querySelector('.memes');
+  memeContainer.addEventListener('click', function(event) {
+    if (event.target.tagName === 'IMG') {
+      event.target.parentElement.remove();
+    }
+  });
+  // Mouse Hover Event - Mime Image
+  memeContainer.addEventListener('mouseover', function(event) {
+    if (event.target.tagName === 'IMG') {
+      event.target.parentElement.classList.add('meme--container-transparent');
+    }
+  });
+  // Mouse Remove Hover Event - Mime Image
+  memeContainer.addEventListener('mouseout', function(event) {
+    if (event.target.tagName === 'IMG') {
+      event.target.parentElement.classList.remove(
+        'meme--container-transparent'
+      );
     }
   });
 });
@@ -45,13 +69,13 @@ function createMemeDisplayElement(imageurl, toptext, bottomtext) {
   newMemeElement.appendChild(imgElement);
 
   var topTextElement = document.createElement('div');
-  topTextElement.innerText = toptext;
-  topTextElement.classList.add('toptext');
+  topTextElement.innerText = toptext.toUpperCase();
+  topTextElement.classList.add('toptext-position', 'meme--font');
   newMemeElement.appendChild(topTextElement);
 
   var bottomTextElement = document.createElement('div');
-  bottomTextElement.innerText = bottomtext;
-  bottomTextElement.classList.add('bottomtext');
+  bottomTextElement.innerText = bottomtext.toUpperCase();
+  bottomTextElement.classList.add('bottomtext-position', 'meme--font');
   newMemeElement.appendChild(bottomTextElement);
 
   return newMemeElement;
