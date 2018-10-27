@@ -24,8 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     } else if (submitButton === 'Clear Fields') {
       clearInput();
-    } else if (submitButton === 'Random Image') {
+    } else if (submitButton === 'Sample Meme') {
       imageurl.value = 'https://loremflickr.com/600/400';
+      toptext.value = 'i haz most hunger';
+      bottomtext.value = 'when huuumans come home 😋😋';
     }
   }
 
