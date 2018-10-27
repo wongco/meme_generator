@@ -11,12 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var submitButton = event.target.value;
     if (submitButton === 'Create Delicious Meme') {
       // Check all 3 fields are populated
-      if (
-        imageurl.value === '' ||
-        toptext.value === '' ||
-        bottomtext.value == ''
-      ) {
-        alert('Error: Please fill out all input fields');
+      if (imageurl.value === '') {
+        alert('Error: Please fill out an Image URL');
       } else {
         var newMemeElement = createMemeDisplayElement(
           imageurl.value,
@@ -24,9 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
           bottomtext.value
         );
         memesContainer.appendChild(newMemeElement);
+        clearInput();
       }
     } else if (submitButton === 'Clear Fields') {
       clearInput();
+    } else if (submitButton === 'Random Image') {
+      imageurl.value = 'https://loremflickr.com/600/400';
     }
   }
 
@@ -39,22 +38,24 @@ document.addEventListener('DOMContentLoaded', function() {
   // memeContainer Removel Event
   var memeContainer = document.querySelector('.memes');
   memeContainer.addEventListener('click', function(event) {
-    if (event.target.tagName === 'IMG') {
+    if (event.target.parentNode.tagName === 'DIV') {
       event.target.parentElement.remove();
     }
   });
   // Mouse Hover Event - Mime Image
   memeContainer.addEventListener('mouseover', function(event) {
-    if (event.target.tagName === 'IMG') {
-      event.target.parentElement.classList.add('meme--container-transparent');
+    if (event.target.parentNode.tagName === 'DIV') {
+      var memeItem = event.target.parentElement;
+      memeItem.classList.add('meme--container-transparent');
+      memeItem.childNodes[3].classList.add('meme--remove_sign-viewable');
     }
   });
   // Mouse Remove Hover Event - Mime Image
   memeContainer.addEventListener('mouseout', function(event) {
-    if (event.target.tagName === 'IMG') {
-      event.target.parentElement.classList.remove(
-        'meme--container-transparent'
-      );
+    if (event.target.parentNode.tagName === 'DIV') {
+      var memeItem = event.target.parentElement;
+      memeItem.classList.remove('meme--container-transparent');
+      memeItem.childNodes[3].classList.remove('meme--remove_sign-viewable');
     }
   });
 });
@@ -77,6 +78,11 @@ function createMemeDisplayElement(imageurl, toptext, bottomtext) {
   bottomTextElement.innerText = bottomtext.toUpperCase();
   bottomTextElement.classList.add('bottomtext-position', 'meme--font');
   newMemeElement.appendChild(bottomTextElement);
+
+  var removeElement = document.createElement('div');
+  removeElement.innerText = 'X';
+  removeElement.classList.add('meme--remove_sign-transparent');
+  newMemeElement.appendChild(removeElement);
 
   return newMemeElement;
 }
