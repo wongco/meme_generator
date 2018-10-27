@@ -1,3 +1,53 @@
+/* ----------------
+-----Body CSS-----
+-----------------*/
+
 body {
   font-family: sans-serif;
+  text-align: center;
+}
+
+/* ----------------
+-----Input CSS-----
+-----------------*/
+
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.textinput {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  width: 50%;
+  justify-content: flex-end;
+}
+
+.textinput input {
+  margin-left: 2em;
+  margin-right: 10em;
+  width: 60%;
+}
+
+.submit {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  /* background-color: blue; */
+  width: 50%;
+  padding: 0.5em 0;
+  margin-right: 15em;
+}
+
+/* ----------------
+-----Memes CSS-----
+-----------------*/
+
+.memes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
